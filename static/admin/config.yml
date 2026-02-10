@@ -2,7 +2,7 @@
 backend:
   name: github
   repo: pandasiwi/demo
-  base_url: pandasiwi-authenticator.muhammadrozaan.workers.dev
+  base_url: https://pandasiwi-authenticator.muhammadrozaan.workers.dev
 
 media_folder: "static/images/uploads" # Folder gambar global (fallback)
 public_folder: "/images/uploads"
