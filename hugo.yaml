@@ -1,0 +1,42 @@
+baseURL: https://nawasena-store.github.io
+languageCode: en-us
+title: Pandasiwi
+
+timeZone: Asia/Jakarta
+
+menus:
+  main:
+  - name: Home
+    pageRef: /
+    weight: 10
+  - name: Products
+    pageRef: /products
+    weight: 20
+
+  - name: Batik
+    parent: Products
+    pageRef: /products/batik
+    weight: 2
+
+  - name: Bangunan
+    parent: Products
+    pageRef: /products/bangunan
+    weight: 3
+
+  - name: Tags
+    pageRef: /tags
+    weight: 30
+
+params: 
+  heroTitle: Ragam Kebutuhan, </br>
+    Satu Kualitas Terpecaya.
+  heroDesc: |
+    Menghadirkan koleksi Batik premium, kuliner beku praktis, 
+    hingga solusi bahan bangunan yang kokoh untuk Anda.
+  heroImages:
+    - images/batik.jpg
+
+module:
+  hugoVersion:
+    extended: false
+    min: 0.146.0

@@ -1,0 +1,59 @@
+@use "../abstract/variables" as v;
+
+:root {
+  --bg-body: #{v.$gray-50};
+  --bg-card: #{v.$white};
+  
+  // Background Dropdown/Hover (Logika RGBA kamu tadi)
+  --bg-surface-hover: rgba(0, 0, 0, 0.05); // Abu tipis transparan
+  --bg-dropdown: #{v.$white}; // Dropdown biasanya solid biar text jelas
+  --border-dropdown: #{v.$gray-200};
+
+  // Text
+  --text-main: #{v.$gray-900};
+  --text-muted: #{v.$gray-500};
+  --text-inverse: #{v.$white}; // Teks di atas warna primary
+  
+  // Border
+  --border-color: #{v.$gray-200};
+  
+  // Brand
+  --color-brand: #{v.$primary};
+  --color-brand-light: #{v.$primary-light};
+  --color-brand-dark: #{v.$primary-dark};
+
+  // Shadow (Penting untuk Dropdown!)
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+// --- DARK MODE ---
+[data-theme="dark"] {
+  --bg-body: #{v.$black}; 
+  
+  --bg-card: #{mix(white, v.$black, 5%)}; 
+
+  --bg-surface-hover: rgba(255, 255, 255, 0.05); // Putih transparan
+  --bg-dropdown: #{mix(white, v.$black, 8%)}; // Sedikit lebih terang dari card
+  --border-dropdown: #{mix(white, v.$black, 15%)};
+
+  // Text
+  --text-main: #{v.$gray-50};
+  --text-muted: #{v.$gray-400};
+  --text-inverse: #{v.$black}; // Jika ada teks di atas elemen putih
+
+  // Border (Lebih gelap di dark mode biar gak nyolok)
+  --border-color: #{mix(white, v.$black, 12%)};
+  
+  // Shadow di dark mode biasanya lebih tebal atau malah hilang
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  // Transisi smooth saat ganti tema
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; 
+}

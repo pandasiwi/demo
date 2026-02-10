@@ -1,0 +1,41 @@
+@use "functions" as *;
+
+$primary-white: #dbeafe;
+$primary: #A81501;
+$primary-light: #DE2D09;
+$primary-dark: #6F1300;
+
+$white:    #fafafa;
+$black:    #0f172a; 
+$gray-500: #4B5563;
+
+$gray-50: mixc($gray-500, 50);
+$gray-100: mixc($gray-500, 100);
+$gray-200: mixc($gray-500, 200);
+$gray-300: mixc($gray-500, 300);
+$gray-400: mixc($gray-500, 400);
+$gray-600: mixc($gray-500, 600);
+$gray-700: mixc($gray-500, 700);
+$gray-800: mixc($gray-500, 800);
+$gray-900: mixc($gray-500, 900);
+
+$success: #22c55e;
+$danger:  #ef4444;
+$warning: #f59e0b;
+
+$font-brand: 'Cormorant Garamond', serif;
+$font-body:  'Plus Jakarta Sans', sans-serif;
+$font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+$border-radius: 0.5rem; // 8px
+$container-max-width: 1100px;
+$transition-base: 0.2s ease-in-out;
+
+$breakpoints: (
+  "sm": 640px,
+  "md": 768px,
+  "lg": 1024px,
+  "xl": 1280px,
+  "2xl": 1536px
+);
+

@@ -1,0 +1,11 @@
+@function mixc($base-color, $weight) {
+  @if $weight == 500 {
+    @return $base-color;
+  } @else if $weight < 500 {
+    $percent: (500 - $weight) / 5; 
+    @return mix(white, $base-color, $percent * 1%); 
+  } @else {
+    $percent: ($weight - 500) / 5;
+    @return mix(black, $base-color, $percent * 1%);
+  }
+}

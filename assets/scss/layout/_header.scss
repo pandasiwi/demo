@@ -1,0 +1,320 @@
+@use '../abstract' as *;
+
+header {
+  height: 70px;
+  background-color: var(--bg-card);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  transition: all 0.2s ease-in-out;
+  will-change: background-color, box-shadow;
+
+  body.page-home & {
+    @include mq(lg) {
+      position: fixed; // Home: Fixed
+      background-color: transparent; // Home: Transparan
+      border-bottom: none;
+      box-shadow: none;
+
+      // Saat Home Page BELUM di-scroll (Teks Putih)
+      &:not(.is-scrolled) {
+        .logo {
+          color: #fafafa;
+        }
+        .nav__link {
+          color: #fafafa;
+          border: none; // Hapus border link kalau ada
+        }
+        // Pastikan warna hover di kondisi transparan terlihat jelas
+        .nav__link:hover {
+          color: var(--color-brand-light);
+        }
+      }
+    }
+  }
+
+  // Style khusus saat di-scroll (Page Home)
+  // Nesting logic JS state di sini agar rapi
+  &.is-scrolled {
+    background-color: var(--bg-card) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+    // Override warna logo/link saat scroll
+    .logo,
+    .nav__link {
+      color: var(--text-main);
+    }
+  }
+
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+
+    @include mq(md) {
+      max-width: 100%;
+    }
+
+    @include mq(lg) {
+      max-width: 1280px;
+    }
+  }
+
+  // --- LOGO ---
+  .logo {
+    font-family: $font-brand;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    text-decoration: none;
+    z-index: 1002;
+    transition: all 0.2s ease-in-out;
+
+    // Desktop Override (Hanya warna)
+    @include mq(lg) {
+      color: var(--text-main);
+    }
+  }
+
+  // --- HAMBURGER (Hanya muncul di Mobile) ---
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1002;
+    padding: 0;
+
+    span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: var(--text-main);
+      transition: all 0.3s ease-in-out;
+    }
+
+    &.active {
+      span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+      }
+      span:nth-child(2) {
+        opacity: 0;
+      }
+      span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+      }
+    }
+
+    // HILANGKAN DI DESKTOP
+    @include mq(lg) {
+      display: none;
+    }
+  }
+
+  // --- NAVIGASI (CORE) ---
+  .nav {
+    // 1. MOBILE DEFAULT (Drawer Style)
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--bg-card);
+    padding: 80px 20px 40px;
+    transition: right 0.3s cubic-bezier(0.77, 0.2, 0.05, 1);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    z-index: 1001;
+
+    &.active {
+      right: 0;
+    }
+
+    @include mq(md) {
+      width: 300px;
+    }
+
+    @include mq(lg) {
+      position: static; // Balik ke flow normal
+      width: auto;
+      height: 100%;
+      background: transparent;
+      padding: 0;
+      box-shadow: none;
+      overflow: visible;
+      transition: none;
+
+      // Geser posisi drawer logic (right: -100%) tidak perlu di-reset
+      // karena position sudah static
+    }
+
+    &__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column; // Mobile: Vertikal
+
+      @include mq(lg) {
+        flex-direction: row; // Desktop: Horizontal
+        align-items: center;
+        gap: 2rem;
+        height: 100%;
+      }
+    }
+
+    &__item {
+      position: relative;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &.expanded {
+        .nav__dropdown {
+          max-height: 500px;
+          margin-top: 0.5rem;
+        }
+
+        .nav__icon-arrow {
+          transform: rotate(225deg);
+        }
+      }
+
+      &:last-child .nav__link {
+        border: none;
+      }
+
+      @include mq(lg) {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        border-bottom: none; // Reset border
+
+        // Hover Desktop Trigger Dropdown
+        &:hover > .nav__dropdown {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    &__link {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: all 0.2s ease-in-out;
+
+      @include mq(lg) {
+        padding: 0;
+        width: 100%;
+        font-size: 0.95rem;
+        border: none;
+        color: var(--text-main); // Default desktop
+        gap: 6px;
+
+        &:hover {
+          color: var(--color-brand-light);
+        }
+      }
+    }
+
+    &__icon-arrow {
+      border: solid currentColor;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(45deg);
+      transition: transform 0.3s;
+      margin-right: 5px;
+
+      @include mq(lg) {
+        padding: 2px;
+        margin: 0 0 2px 0;
+      }
+    }
+
+    // --- DROPDOWN ---
+    &__dropdown {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      // Mobile: Accordion Style
+      background-color: rgba(0, 0, 0, 0.03);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      box-shadow: var(--shadow-lg);
+
+      // Link anak (Mobile)
+      .nav__link {
+        padding-left: 1.5rem;
+        font-size: 1rem;
+
+        @include mq(lg) {
+          padding: 0.75rem 1.25rem;
+          color: var(--text-main) !important;
+
+          &:hover {
+            color: var(--color-brand-light) !important;
+            background-color: var(--bg-surface-hover);
+          }
+        }
+      }
+
+      // DESKTOP: Popover Style
+      @include mq(lg) {
+        display: block;
+        position: absolute;
+        max-height: none; // Matikan accordion
+        overflow: visible;
+
+        // Posisi & Style Box
+        top: 100%;
+        right: 0;
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        min-width: 200px;
+        padding: 0.5rem 0;
+
+        // Animasi Masuk
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.2s ease;
+        z-index: 999;
+
+        // Logic Multilevel (Level 2 geser kanan)
+        .nav__dropdown {
+          top: 0;
+          left: 100%;
+          margin-left: 5px;
+          transform: translateX(10px);
+        }
+      }
+    }
+  }
+}
+
+@include mq(lg) {
+  body.page-home header {
+    background-color: transparent;
+    position: fixed;
+  }
+}

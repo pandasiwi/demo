@@ -1,0 +1,23 @@
+{
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "printWidth": 800,
+    "tabWidth": 4,
+    "plugins": ["prettier-plugin-go-template"],
+    "htmlWhitespaceSensitivity": "ignore",
+    "overrides": [
+        {
+            "files": ["*.html"],
+            "options": {
+                "parser": "go-template"
+            }
+        },
+        {
+            "files": ["*.scss"],
+            "options": {
+                "tabWidth": 2,
+            }
+        }
+    ]
+}

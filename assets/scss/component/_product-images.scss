@@ -1,0 +1,16 @@
+.product-images {
+  position: relative;
+  background-color: #c50707ff;
+  width: 100vw;
+  height: 100vw;
+  
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vw;
+    object-fit: cover;
+    object-position: center;
+  }
+}

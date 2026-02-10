@@ -1,0 +1,6 @@
+@use "../abstract/variables" as v;
+
+body {
+  font-family: #{v.$font-body};
+  font-style: normal;
+}

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+    <head>
+        {{ partial "head.html" . }}
+    </head>
+
+    <body class="{{ cond .IsHome "page-home" "" }}">
+        <header>
+            {{ partial "header.html" . }}
+        </header>
+        <main>
+            {{ block "main" . }}{{ end }}
+        </main>
+        <footer>
+            {{ partial "footer.html" . }}
+        </footer>
+
+        <div class="btn ranger" id="important">
+
+        </div>
+
+        <div class="flying-kind">
+            <h3>{{ .Kind }}</h3>
+        </div>
+    </body>
+</html>

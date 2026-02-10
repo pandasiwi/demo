@@ -1,0 +1,9 @@
+<div class="container nav-container">
+    <a class="logo" href="{{ site.BaseURL }}">{{ site.Title }}</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+</div>

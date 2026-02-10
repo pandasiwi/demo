@@ -1,0 +1,124 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+backend:
+  name: gitlab
+  repo: user/repo
+
+media_folder: "static/images/uploads" # Folder gambar global (fallback)
+public_folder: "/images/uploads"
+
+collections:
+  # ===========================================================
+  # 1. KOLEKSI KATEGORI (Batik, Bangunan, Food)
+  # ===========================================================
+  - name: "categories"
+    label: "Manajemen Kategori"
+    folder: "content/products"
+    create: true
+
+    # filter:
+    #   field: "file"
+    #   value: "_index.md"
+
+    # Path: Membuat folder baru sesuai slug, lalu isi _index.md
+    path: "{{slug}}/_index"
+
+    # nested:
+    #   depth: 2
+
+    extension: "md"
+    format: "frontmatter"
+
+    fields:
+      - { label: "Nama Kategori", name: "title", widget: "string" }
+      - { label: "Deskripsi", name: "description", widget: "text" }
+      - { label: "Layout", name: "layout", widget: "hidden", default: "list" }
+      - { label: "Body", name: "body", widget: "markdown", required: false }
+
+  # ===========================================================
+  # 2. KOLEKSI PRODUK (Leaf Bundle Otomatis)
+  # ===========================================================
+  - name: "products"
+    label: "Katalog Produk"
+    folder: "content/products"
+    create: true
+
+    path: "{{category}}/{{slug}}/index"
+    media_folder: "images/"
+
+    # 3. Setup Public Folder (Output URL di Frontmatter)
+    # Kosongkan ("") artinya: "Panggil gambar langsung nama filenya aja"
+    # Contoh di markdown nanti jadi: image: "foto-sepatu.jpg" (Bukan /static/images/...)
+    public_folder: ""
+
+    fields:
+      # A. PILIH KATEGORI (Relation Widget)
+      # Ini akan melist semua kategori yang sudah dibuat di koleksi atas.
+      # User tinggal pilih, gak perlu ngetik manual path-nya.
+      - label: "Pilih Kategori"
+        name: "category"
+        widget: "relation"
+        collection: "categories"
+        search_fields: ["title"]
+        value_field: "{{slug}}"
+        display_fields: ["title"]
+
+      # B. INFO DASAR
+      - { label: "Nama Produk", name: "title", widget: "string" }
+
+      - label: "Tanggal"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DDTHH:mm:ssZ"
+        date_format: "DD/MM/YYYY"
+        time_format: "HH:mm"
+        picker_utc: false
+
+      - { label: "Draft", name: "draft", widget: "boolean", default: true }
+
+      # C. INFO HARGA & SPEK
+      - label: "Info Produk"
+        name: "info"
+        widget: "object"
+        fields:
+          - { label: "Harga (Angka)", name: "price", widget: "number" }
+          - {
+              label: "Stok Habis?",
+              name: "is_sold_out",
+              widget: "boolean",
+              default: false,
+            }
+
+      # D. GAMBAR (List)
+      - label: "Galeri Foto"
+        name: "images"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Image", name: "image", widget: "image" }
+          - { label: "alt", name: "alt", widget }
+
+      # E. OPSI BELI (Object + List)
+      - label: "Tombol Pembelian"
+        name: "buy_options"
+        widget: "object"
+        fields:
+          - {
+              label: "Aktifkan WhatsApp?",
+              name: "whatsapp",
+              widget: "boolean",
+              default: true,
+            }
+          - label: "Marketplace Lain"
+            name: "marketplaces"
+            widget: "list"
+            fields:
+              - {
+                  label: "Penyedia Toko",
+                  name: "name",
+                  widget: "select",
+                  options: ["Shopee", "Tokopedia", "Lazada"],
+                }
+              - { label: "Link Produk", name: "url", widget: "string" }
+
+      # F. DESKRIPSI UTAMA
+      - { label: "Deskripsi Lengkap", name: "body", widget: "markdown" }

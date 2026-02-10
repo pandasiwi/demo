@@ -1,0 +1,25 @@
+@use "../abstract" as *;
+
+.container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+
+    @include mq(sm) {
+        max-width: 640px;
+    }
+    @include mq(md) {
+        max-width: 768px;
+    }
+    @include mq(lg) {
+        max-width: 1024px;
+    }
+    @include mq(xl) {
+        max-width: 1280px;
+    }
+    @include mq('2xl') {
+        max-width: 1536px;
+    }
+}
