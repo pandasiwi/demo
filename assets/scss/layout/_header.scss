@@ -9,6 +9,8 @@ header {
   width: 100%;
   transition: all 0.2s ease-in-out;
   will-change: background-color, box-shadow;
+  box-shadow: var(--shadow-lg);
+
 
   body.page-home & {
     @include mq(lg) {
@@ -19,7 +21,7 @@ header {
 
       // Saat Home Page BELUM di-scroll (Teks Putih)
       &:not(.is-scrolled) {
-        .logo {
+        .logo,.dark-toggle {
           color: #fafafa;
         }
         .nav__link {
@@ -35,10 +37,9 @@ header {
   }
 
   // Style khusus saat di-scroll (Page Home)
-  // Nesting logic JS state di sini agar rapi
   &.is-scrolled {
     background-color: var(--bg-card) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 
     // Override warna logo/link saat scroll
     .logo,
@@ -65,7 +66,7 @@ header {
   // --- LOGO ---
   .logo {
     font-family: $font-brand;
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--text-main);
     text-decoration: none;
@@ -78,12 +79,24 @@ header {
     }
   }
 
+  // --- BUTTON WRAPPER ---
+  .button-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 1002;
+
+    @include mq(lg) {
+      display: none;
+    }
+  }
+
   // --- HAMBURGER (Hanya muncul di Mobile) ---
   .hamburger {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 30px;
+    width: 25px;
     height: 20px;
     background: none;
     border: none;
@@ -117,6 +130,28 @@ header {
     }
   }
 
+  // --- DARK TOGGLE ---
+  .dark-toggle {
+    display: inline-flex;
+    cursor: pointer;
+    background: var(--bg-surface-hover);
+    border: none;
+    outline: transparent;
+    color: var(--text-main);
+    width: 35px;
+    height: 35px;
+    padding: 9px;
+    border-radius: 1.5rem;
+
+    &:nth-last-child(1){
+      display: none;
+
+      @include mq(lg) {
+        display: block;
+      }
+    }
+  }
+
   // --- NAVIGASI (CORE) ---
   .nav {
     // 1. MOBILE DEFAULT (Drawer Style)
@@ -127,7 +162,7 @@ header {
     height: 100vh;
     background-color: var(--bg-card);
     padding: 80px 20px 40px;
-    transition: right 0.3s cubic-bezier(0.77, 0.2, 0.05, 1);
+    transition: all 0.3s cubic-bezier(0.77, 0.2, 0.05, 1);
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     z-index: 1001;
@@ -257,7 +292,7 @@ header {
       background-color: rgba(0, 0, 0, 0.03);
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease-out;
+      transition: all 0.3s ease-out;
       box-shadow: var(--shadow-lg);
 
       // Link anak (Mobile)
@@ -265,14 +300,15 @@ header {
         padding-left: 1.5rem;
         font-size: 1rem;
 
+        &:hover {
+          color: var(--color-brand-light) !important;
+          background-color: var(--bg-surface-hover);
+        }
+
         @include mq(lg) {
           padding: 0.75rem 1.25rem;
           color: var(--text-main) !important;
 
-          &:hover {
-            color: var(--color-brand-light) !important;
-            background-color: var(--bg-surface-hover);
-          }
         }
       }
 
@@ -309,12 +345,5 @@ header {
         }
       }
     }
-  }
-}
-
-@include mq(lg) {
-  body.page-home header {
-    background-color: transparent;
-    position: fixed;
   }
 }
