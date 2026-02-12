@@ -1,0 +1,27 @@
+home: 
+  hero:
+    title: Ragam Kebutuhan, </br> Satu Kualitas Terpecaya.
+    description: |
+      Menghadirkan koleksi Batik premium, kuliner beku praktis, 
+      hingga solusi bahan bangunan yang kokoh untuk Anda.
+    ctaLabel: Belanja Sekarang
+    ctaLink: /products
+    images:
+      - images/batik.jpg
+
+  about:
+    subtitle: pandasiwi
+    description: |
+      Nama **'Pandasiwi'** diambil dengan semangat pengabdian dan pelestarian. 
+      Filosofi inilah yang menjadi landasan utama kami dalam menjalankan bisnis.
+      
+      Pandasiwi hadir sebagai entitas bisnis multidimensi yang berfokus pada 
+      pemenuhan kebutuhan esensial manusia—mulai dari pelestarian budaya Batik, kebutuhan pangan praktis, hingga material bangunan berkualitas tinggi.
+    image: https://cdn.vectorstock.com/i/500p/23/28/golden-floral-batik-pattern-vector-47472328.jpg
+    buttonLabel: Baca Selengkap nya
+    buttonLink: /about
+
+  categories:
+    title: Kategori Kami
+    description: |
+      Temukan beragam kebutuhan yang telah kami sediakan.
