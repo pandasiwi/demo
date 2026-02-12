@@ -1,0 +1,82 @@
+@use '../abstract' as *;
+
+.card {
+  color: var(--text-main);
+  border-radius: 12px;
+  background-color: var(--bg-card);
+  max-width: 20rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+
+  &:hover {
+    img {
+      transform: scale(1.2);
+    }
+  }
+
+  &-image {
+    position: relative;
+    width: 100%;
+    height: 16rem;
+    overflow: hidden;
+
+    .overflow {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .3);
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: all .2s ease-in-out;
+    }
+
+    &__title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fafafa;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(0, 0, 0, .6);
+      font-size: 4rem;
+    }
+  }
+
+  &-content {
+    padding: 0.75rem 0.75rem 1rem 0.75rem;
+  }
+
+  &-title {
+    font-weight: 900;
+    font-size: 2rem;
+    margin-bottom: 9px;
+  }
+
+  &-description {
+    font-size: 1rem;
+    text-align: justify;
+  }
+
+  &-footer {
+    padding: 1rem 1.75rem;
+  }
+
+  &-cta-full {
+    color: var(--text-main);
+    text-decoration: none;
+    display: inline-flex;
+    width: 100%;
+    padding: 1rem 1.5rem;
+  }
+}
+
+.card-anchor {
+  text-decoration: none;
+  color: var(--text-main);
+}
