@@ -1,0 +1,8 @@
+@use "../abstract" as *;
+
+.btn {
+  padding: 10px 20px;
+  color: var(--text-main);
+  border-radius: 12px;
+  text-decoration: none;
+}

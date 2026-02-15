@@ -1,0 +1,35 @@
+baseURL: https://nawasena-store.github.io
+languageCode: en-us
+title: Pandusiwi
+
+timeZone: Asia/Jakarta
+
+taxonomies:
+  category: category
+  tag: tags
+
+mediaTypes:
+  application/yaml:
+    suffixes:
+      - yml
+      - yaml
+  
+outputFormats:
+  adminconfig:
+    mediaType: application/yaml 
+    baseName: config
+    isPlainText: true
+    isHTML: false
+    notAlternative: true
+    path: admin
+  
+outputs:
+  home: 
+    - html
+    - rss
+    - adminconfig
+  
+module:
+  hugoVersion:
+    extended: false
+    min: 0.146.0

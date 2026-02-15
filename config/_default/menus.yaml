@@ -1,0 +1,27 @@
+main:
+- name: Beranda
+  pageRef: /
+  weight: 10
+
+- name: Products
+  pageRef: /products
+  weight: 20
+
+- name: Batik
+  parent: Products
+  pageRef: /products/batik
+  weight: 2
+
+- name: Kuliner
+  parent: Products
+  pageRef: /products/kuliner
+  weight: 3
+
+- name: Konstruksi
+  parent: Products
+  pageRef: /products/konstruksi
+  weight: 4
+
+- name: Kontak
+  pageRef: /contact
+  weight: 30

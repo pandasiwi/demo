@@ -1,9 +1,16 @@
 <div class="container nav-container">
-    <a class="logo" href="{{ site.BaseURL }}">{{ site.Title }}</a>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <a class="logo" href="{{ site.BaseURL }}">
+        {{ partial "components/logo" . }}
+    </a>
+    <div class="button-wrapper">
+        <button class="dark-toggle">
+            {{ partial "icon" (dict "name" "moon-solid" "size" "100%") }}
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
     {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
 </div>

@@ -1,0 +1,116 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+backend:
+  name: github
+  repo: pandusiwi/demo
+  base_url: https://pandasiwi-authenticator.muhammadrozaan.workers.dev
+
+media_folder: "static/images/uploads" # Folder gambar global (fallback)
+public_folder: "/images/uploads"
+
+collections:
+  - name: "categories"
+    label: "Manajemen Kategori"
+    folder: "content/products"
+    icon: category
+    create: true
+    nested:
+      depth: 0
+
+    path: '{{ partial "sur" "slug" }}/_index'
+
+    extension: "md"
+    format: "frontmatter"
+
+    fields:
+      - { label: "Nama Kategori", name: "title", widget: "string" }
+      - { label: "Tagline Kategori", name: "tagline", widget: "string", required: false }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image" }
+      - label: "Urutan"
+        name: "weight"
+        widget: "number"
+        default: 10
+        hint: "Semakin kecil angkanya, semakin di depan posisinya (Contoh: 10, 20, 30)"     
+      - { label: "Deskripsi", name: "description", widget: "text" }
+      - { name: "layout", widget: "hidden", default: "list" }
+      - { label: "Body", name: "body", widget: "markdown", required: false }
+
+  {{- $cat := site.GetPage "section" "products" }}
+  #{{- range $cat.Pages }}
+  - name: "products-{{.File.ContentBaseName}}"
+    label: "Katalog {{.Title}}"
+    folder: "content/products/{{.File.ContentBaseName}}"
+    create: true
+    icon: inventory_2
+
+    path: '{{ partial "sur" "slug" }}/index'
+
+    public_folder: "images"
+    thumbnail: images.*.image
+
+    fields:
+      - name: "category"
+        widget: "hidden"
+        default: {{ .File.ContentBaseName }}
+
+      - { label: "Nama Produk", name: "title", widget: "string" }
+
+      - label: "Tanggal"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DDTHH:mm:ssZ"
+        date_format: "DD/MM/YYYY"
+        time_format: "HH:mm"
+        picker_utc: false
+
+      - { label: "Draft", name: "draft", widget: "boolean", default: true }
+
+      # C. INFO HARGA & SPEK
+      - label: "Info Produk"
+        name: "info"
+        widget: "object"
+        preview: false
+        fields:
+          - { label: "Harga (Angka)", name: "price", widget: "number" }
+          - {
+              label: "Stok Habis?",
+              name: "is_sold_out",
+              widget: "boolean",
+              default: false,
+            }
+
+      # D. GAMBAR (List & Featured)
+      - label: "Galeri Foto"
+        name: "images"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Image", name: "image", widget: "image", media_folder: images }
+          - { label: "alt", name: "alt", widget: string }
+
+      # E. OPSI BELI (Object + List)
+      - label: "Tombol Pembelian"
+        name: "buy_options"
+        widget: "object"
+        fields:
+          - {
+              label: "Aktifkan WhatsApp?",
+              name: "whatsapp",
+              widget: "boolean",
+              default: true,
+            }
+          - label: "Marketplace Lain"
+            name: "marketplaces"
+            widget: "list"
+            required: false
+            fields:
+              - {
+                  label: "Penyedia Toko",
+                  name: "name",
+                  widget: "select",
+                  options: ["Shopee", "Tokopedia", "Lazada"],
+                }
+              - { label: "Link Produk", name: "url", widget: "string" }
+
+      # F. DESKRIPSI UTAMA
+      - { label: "Deskripsi Lengkap", name: "body", widget: "markdown" }
+  #{{- end }}
