@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
 backend:
   name: github
-  repo: pandasiwi/demo
+  repo: pandusiwi/demo
   base_url: https://pandasiwi-authenticator.muhammadrozaan.workers.dev
 
 media_folder: "static/images/uploads" # Folder gambar global (fallback)
@@ -23,12 +23,18 @@ collections:
 
     fields:
       - { label: "Nama Kategori", name: "title", widget: "string" }
+      - { label: "Tagline Kategori", name: "tagline", widget: "string", required: false }
       - { label: "Thumbnail", name: "thumbnail", widget: "image" }
+      - label: "Urutan"
+        name: "weight"
+        widget: "number"
+        default: 10
+        hint: "Semakin kecil angkanya, semakin di depan posisinya (Contoh: 10, 20, 30)"     
       - { label: "Deskripsi", name: "description", widget: "text" }
       - { name: "layout", widget: "hidden", default: "list" }
       - { label: "Body", name: "body", widget: "markdown", required: false }
 
-  {{- $cat := site.GetPage "section" "categories" }}
+  {{- $cat := site.GetPage "section" "products" }}
   #{{- range $cat.Pages }}
   - name: "products-{{.File.ContentBaseName}}"
     label: "Katalog {{.Title}}"
